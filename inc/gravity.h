@@ -2,10 +2,14 @@
 #define _GRAVITY_H__
 
 #include "SDL/SDL.h"
+#include "CEvents.h"
 
 namespace Gravity {
 
-	class Gravity {
+	class Gravity : public CEvents {
+
+		bool IsRunning;
+		SDL_Surface* RootDisplay;
 
 	public:
 		Gravity();
@@ -16,6 +20,7 @@ namespace Gravity {
 		void OnLoop();
 		void OnRender();
 		void OnCleanup();
+		void OnExit();
 
 	};
 

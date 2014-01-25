@@ -14,7 +14,7 @@ CXXFLAGS = -g -Wall -std=c++0x -I${INC_DIR}
 OBJECTS = \
 	${BIN_DIR}/main.o \
 	${BIN_DIR}/gravity.o \
-	${BIN_DIR}/CEvents.o 
+	${BIN_DIR}/SDLEvents.o 
 
 DEPS = $(BIN_DIR)/${OUTPUT_NAME}.deps
 
@@ -24,7 +24,7 @@ ${DEPS}: ${SRC} ${INC}
 	@${CXX} -M ${SRC} > ${DEPS}
 
 ${OUTPUT_NAME}: ${OBJECTS}
-	${CXX} ${CXXFLAGS} ${OBJECTS} -o ${OUTPUT_NAME} -lSDL
+	${CXX} ${CXXFLAGS} ${OBJECTS} -o ${OUTPUT_NAME} -lSDL -lGL -lGLU
 
 ${OBJECTS}: ${BIN_DIR}/%.o : ${SRC_DIR}/%.cpp
 	${CXX} ${CXXFLAGS} $< -c -o $@

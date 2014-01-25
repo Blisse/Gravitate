@@ -2,5 +2,5 @@
 
 int main(int argc, char* args[]) {
 	Gravity::Gravity gravity;
-	return gravity.OnExecute();
+	return gravity.Execute();
 }

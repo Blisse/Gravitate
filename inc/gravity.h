@@ -2,25 +2,36 @@
 #define _GRAVITY_H__
 
 #include "SDL/SDL.h"
-#include "CEvents.h"
+#include <GL/glut.h>
+
+#include "SDLEvents.h"
 
 namespace Gravity {
 
-	class Gravity : public CEvents {
+	class Gravity : public SDLEvents {
 
 		bool IsRunning;
 		SDL_Surface* RootDisplay;
 
-	public:
-		Gravity();
-		int OnExecute();
+
 
 		bool OnInit();
+		bool InitSDL();
+		bool InitOpenGL();
+
+
 		void OnEvent(SDL_Event*);
 		void OnLoop();
 		void OnRender();
 		void OnCleanup();
+		int OnExecute();
+
+		// overrides
 		void OnExit();
+		
+	public:
+		Gravity();
+		int Execute();
 
 	};
 

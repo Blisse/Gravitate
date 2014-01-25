@@ -1,22 +1,25 @@
-#include "CEvents.h"
+#include "SDLEvents.h"
 #include <iostream>
+
+using namespace std;
 
 namespace Gravity {
 
-    CEvents::CEvents() {
+    SDLEvents::SDLEvents() {
 
     }
     
-    CEvents::~CEvents() {
+    SDLEvents::~SDLEvents() {
         //Do nothing
     }
     
-    void CEvents::OnEvent(SDL_Event* Event) {
+    void SDLEvents::OnEvent(SDL_Event* Event) {
         switch(Event->type) {
             case SDL_ACTIVEEVENT: {
+                cout << "SDL_ACTIVEEVENT" << endl;
                 switch(Event->active.state) {
                     case SDL_APPMOUSEFOCUS: {
-                        if ( Event->active.gain ) {
+                        if (Event->active.gain) {
                             OnMouseFocus();
                         } else {
                             OnMouseBlur();
@@ -24,15 +27,19 @@ namespace Gravity {
                         break;
                     }
                     case SDL_APPINPUTFOCUS: {
-                        if ( Event->active.gain )    OnInputFocus();
-                        else     OnInputBlur();
-    
+                        if (Event->active.gain) {
+                            OnInputFocus();
+                        } else {
+                            OnInputBlur();
+                        }
                         break;
                     }
                     case SDL_APPACTIVE:  {
-                        if ( Event->active.gain )    OnRestore();
-                        else     OnMinimize();
-    
+                        if (Event->active.gain) {
+                            OnRestore();
+                        } else {
+                            OnMinimize();
+                        }
                         break;
                     }
                 }
@@ -40,21 +47,25 @@ namespace Gravity {
             }
     
             case SDL_KEYDOWN: {
+                cout << "SDL_KEYDOWN" << endl;
                 OnKeyDown(Event->key.keysym.sym,Event->key.keysym.mod,Event->key.keysym.unicode);
                 break;
             }
     
             case SDL_KEYUP: {
+                cout << "SDL_KEYUP" << endl;
                 OnKeyUp(Event->key.keysym.sym,Event->key.keysym.mod,Event->key.keysym.unicode);
                 break;
             }
     
             case SDL_MOUSEMOTION: {
+                cout << "SDL_MOUSEMOTION" << endl;
                 OnMouseMove(Event->motion.x,Event->motion.y,Event->motion.xrel,Event->motion.yrel,(Event->motion.state&SDL_BUTTON(SDL_BUTTON_LEFT))!=0,(Event->motion.state&SDL_BUTTON(SDL_BUTTON_RIGHT))!=0,(Event->motion.state&SDL_BUTTON(SDL_BUTTON_MIDDLE))!=0);
                 break;
             }
     
             case SDL_MOUSEBUTTONDOWN: {
+                cout << "SDL_MOUSEBUTTONDOWN" << endl;
                 switch(Event->button.button) {
                     case SDL_BUTTON_LEFT: {
                         OnLButtonDown(Event->button.x,Event->button.y);
@@ -73,6 +84,7 @@ namespace Gravity {
             }
     
             case SDL_MOUSEBUTTONUP:  {
+                cout << "SDL_MOUSEBUTTONUP" << endl;
                 switch(Event->button.button) {
                     case SDL_BUTTON_LEFT: {
                         OnLButtonUp(Event->button.x,Event->button.y);
@@ -115,6 +127,7 @@ namespace Gravity {
             }
     
             case SDL_QUIT: {
+                cout << "SDL_QUIT" << endl;
                 OnExit();
                 break;
             }
@@ -125,11 +138,13 @@ namespace Gravity {
             }
     
             case SDL_VIDEORESIZE: {
+                cout << "SDL_VIDEORESIZE" << endl;
                 OnResize(Event->resize.w,Event->resize.h);
                 break;
             }
     
             case SDL_VIDEOEXPOSE: {
+                cout << "SDL_VIDEOEXPOSE" << endl;
                 OnExpose();
                 break;
             }
@@ -141,103 +156,109 @@ namespace Gravity {
         }
     }
     
-    void CEvents::OnInputFocus() {
+    void SDLEvents::OnInputFocus() {
         //Pure virtual, do nothing
     }
     
-    void CEvents::OnInputBlur() {
+    void SDLEvents::OnInputBlur() {
         //Pure virtual, do nothing
     }
     
-    void CEvents::OnKeyDown(SDLKey sym, SDLMod mod, Uint16 unicode) {
+    void SDLEvents::OnKeyDown(SDLKey sym, SDLMod mod, Uint16 unicode) {
+        switch(sym) {
+            case SDLK_ESCAPE:
+                OnExit();
+                break;
+            default:
+                break;
+        }
+    }
+    
+    void SDLEvents::OnKeyUp(SDLKey sym, SDLMod mod, Uint16 unicode) {
         //Pure virtual, do nothing
     }
     
-    void CEvents::OnKeyUp(SDLKey sym, SDLMod mod, Uint16 unicode) {
+    void SDLEvents::OnMouseFocus() {
         //Pure virtual, do nothing
     }
     
-    void CEvents::OnMouseFocus() {
+    void SDLEvents::OnMouseBlur() {
         //Pure virtual, do nothing
     }
     
-    void CEvents::OnMouseBlur() {
+    void SDLEvents::OnMouseMove(int mX, int mY, int relX, int relY, bool Left,bool Right,bool Middle) {
         //Pure virtual, do nothing
     }
     
-    void CEvents::OnMouseMove(int mX, int mY, int relX, int relY, bool Left,bool Right,bool Middle) {
+    void SDLEvents::OnMouseWheel(bool Up, bool Down) {
         //Pure virtual, do nothing
     }
     
-    void CEvents::OnMouseWheel(bool Up, bool Down) {
-        //Pure virtual, do nothing
-    }
-    
-    void CEvents::OnLButtonDown(int mX, int mY) {
+    void SDLEvents::OnLButtonDown(int mX, int mY) {
         //Pure virtual, do nothing
 
     }    
-    void CEvents::OnLButtonUp(int mX, int mY) {
+    void SDLEvents::OnLButtonUp(int mX, int mY) {
         //Pure virtual, do nothing
     }
     
-    void CEvents::OnRButtonDown(int mX, int mY) {
+    void SDLEvents::OnRButtonDown(int mX, int mY) {
         //Pure virtual, do nothing
     }
     
-    void CEvents::OnRButtonUp(int mX, int mY) {
+    void SDLEvents::OnRButtonUp(int mX, int mY) {
         //Pure virtual, do nothing
     }
     
-    void CEvents::OnMButtonDown(int mX, int mY) {
+    void SDLEvents::OnMButtonDown(int mX, int mY) {
         //Pure virtual, do nothing
     }
     
-    void CEvents::OnMButtonUp(int mX, int mY) {
+    void SDLEvents::OnMButtonUp(int mX, int mY) {
         //Pure virtual, do nothing
     }
     
-    void CEvents::OnJoyAxis(Uint8 which,Uint8 axis,Sint16 value) {
+    void SDLEvents::OnJoyAxis(Uint8 which,Uint8 axis,Sint16 value) {
         //Pure virtual, do nothing
     }
     
-    void CEvents::OnJoyButtonDown(Uint8 which,Uint8 button) {
+    void SDLEvents::OnJoyButtonDown(Uint8 which,Uint8 button) {
         //Pure virtual, do nothing
     }
     
-    void CEvents::OnJoyButtonUp(Uint8 which,Uint8 button) {
+    void SDLEvents::OnJoyButtonUp(Uint8 which,Uint8 button) {
         //Pure virtual, do nothing
     }
     
-    void CEvents::OnJoyHat(Uint8 which,Uint8 hat,Uint8 value) {
+    void SDLEvents::OnJoyHat(Uint8 which,Uint8 hat,Uint8 value) {
         //Pure virtual, do nothing
     }
     
-    void CEvents::OnJoyBall(Uint8 which,Uint8 ball,Sint16 xrel,Sint16 yrel) {
+    void SDLEvents::OnJoyBall(Uint8 which,Uint8 ball,Sint16 xrel,Sint16 yrel) {
         //Pure virtual, do nothing
     }
     
-    void CEvents::OnMinimize() {
+    void SDLEvents::OnMinimize() {
         //Pure virtual, do nothing
     }
     
-    void CEvents::OnRestore() {
+    void SDLEvents::OnRestore() {
         //Pure virtual, do nothing
     }
     
-    void CEvents::OnResize(int w,int h) {
+    void SDLEvents::OnResize(int w,int h) {
         //Pure virtual, do nothing
     }
     
-    void CEvents::OnExpose() {
+    void SDLEvents::OnExpose() {
         //Pure virtual, do nothing
     }
     
-    void CEvents::OnExit() {
+    void SDLEvents::OnExit() {
         //Pure virtual, do nothing
     }
     
-    void CEvents::OnUser(Uint8 type, int code, void* data1, void* data2) {
+    void SDLEvents::OnUser(Uint8 type, int code, void* data1, void* data2) {
         //Pure virtual, do nothing
     }
 }

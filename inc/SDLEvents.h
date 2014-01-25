@@ -1,15 +1,15 @@
-#ifndef _CEVENTS_H_
-#define _CEVENTS_H_
+#ifndef _SDLEvents_H_
+#define _SDLEvents_H_
 
 #include <SDL/SDL.h>
 
 namespace Gravity {
 
-    class CEvents {
+    class SDLEvents {
     public:
-        CEvents();
+        SDLEvents();
 
-        virtual ~CEvents();
+        virtual ~SDLEvents();
 
         virtual void OnEvent(SDL_Event* Event);
 

@@ -35,10 +35,10 @@
 
 # Libs
 
-./lib/glm/doc
-./lib/glm/test
-./lib/glm/util
-./lib/glm/CMakeLists.txt
-./lib/glm/CTestConfig.cmake
-./lib/glm/copying.txt
-./lib/glm/readme.txt
+/lib/glm/doc
+/lib/glm/test
+/lib/glm/util
+/lib/glm/CMakeLists.txt
+/lib/glm/CTestConfig.cmake
+/lib/glm/copying.txt
+/lib/glm/readme.txt

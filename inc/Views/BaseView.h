@@ -1,5 +1,5 @@
-#ifndef _COMPONENT_VIEW_H__
-#define _COMPONENT_VIEW_H__
+#ifndef _BASE_VIEW_H__
+#define _BASE_VIEW_H__
 
 #include "SDL/SDL.h"
 #include <GL/glut.h>
@@ -8,18 +8,18 @@
 
 namespace Gravity {
 
-    class ComponentView {
+    class BaseView {
     private:
-        ComponentView* parent;
+        BaseView* parent;
         bool isVisible;
         glm::vec4 position;
 
     protected:
-        std::vector<ComponentView*> children;
+        std::vector<BaseView*> children;
 
     public:
         virtual void Paint() = 0;
     };
 }
 
-#endif //_COMPONENT_VIEW_H__
+#endif //_BASE_VIEW_H__

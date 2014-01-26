@@ -18,8 +18,10 @@ OBJECTS = \
 	${BIN_DIR}/main.o \
 	${BIN_DIR}/gravity.o \
 	${BIN_DIR}/SDLEvents.o \
-	${BIN_DIR}/Views/ComponentView.o \
-	${BIN_DIR}/Views/WindowRootView.o
+	${BIN_DIR}/Models/BaseObject.o \
+	${BIN_DIR}/Models/UniverseModel.o \
+	${BIN_DIR}/Views/BaseView.o \
+	${BIN_DIR}/Views/UniverseView.o
 
 DEPS = $(BIN_DIR)/${OUTPUT_NAME}.deps
 
@@ -45,6 +47,7 @@ fullclean:
 	rm ${OBJECTS} ${DEPS} ${OUTPUT_NAME}
 
 run:
+	clear
 	./${OUTPUT_NAME}
 
 style:

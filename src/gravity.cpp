@@ -7,7 +7,7 @@ namespace Gravity {
 
 	Gravity::Gravity() {
 		isRunning = true;
-		window = new WindowRootView();
+		window = new UniverseView();
 	}
 
 	int Gravity::OnExecute()  {

@@ -10,11 +10,16 @@ SRC := $(shell find $(SRC_DIR) -name '*.cpp')
 INC := $(shell find $(INC_DIR) -name '*.h')
 
 CXX = g++
-CXXFLAGS = -g -Wall -std=c++0x -I${INC_DIR}
+CXXFLAGS = -g -Wall -std=c++0x -I${INC_DIR} -I./lib/glm
+
+LIBFLAGS = -lSDL -lGL -lGLU
+
 OBJECTS = \
 	${BIN_DIR}/main.o \
 	${BIN_DIR}/gravity.o \
-	${BIN_DIR}/SDLEvents.o 
+	${BIN_DIR}/SDLEvents.o \
+	${BIN_DIR}/Views/ComponentView.o \
+	${BIN_DIR}/Views/WindowRootView.o
 
 DEPS = $(BIN_DIR)/${OUTPUT_NAME}.deps
 
@@ -24,7 +29,7 @@ ${DEPS}: ${SRC} ${INC}
 	@${CXX} -M ${SRC} > ${DEPS}
 
 ${OUTPUT_NAME}: ${OBJECTS}
-	${CXX} ${CXXFLAGS} ${OBJECTS} -o ${OUTPUT_NAME} -lSDL -lGL -lGLU
+	${CXX} ${CXXFLAGS} ${OBJECTS} -o ${OUTPUT_NAME} ${LIBFLAGS}
 
 ${OBJECTS}: ${BIN_DIR}/%.o : ${SRC_DIR}/%.cpp
 	${CXX} ${CXXFLAGS} $< -c -o $@

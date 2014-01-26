@@ -6,8 +6,8 @@ using namespace std;
 namespace Gravity {
 
 	Gravity::Gravity() {
-		IsRunning = true;
-		RootDisplay = NULL;
+		isRunning = true;
+		window = new WindowRootView();
 	}
 
 	int Gravity::OnExecute()  {
@@ -17,7 +17,7 @@ namespace Gravity {
 		}
 
 		SDL_Event Event;
-		while (IsRunning) {
+		while (isRunning) {
 			while (SDL_PollEvent(&Event)) {
 				OnEvent(&Event);
 			}
@@ -38,14 +38,14 @@ namespace Gravity {
 
 	    if (SDL_Init(SDL_INIT_VIDEO) < 0) {
 	    	std::cerr << "Video initialization failed: " << SDL_GetError() << endl;
-	        return IsRunning = false;
+	        return isRunning = false;
 	    }
 
 	    const SDL_VideoInfo* info = SDL_GetVideoInfo();
 
 	    if(!info) {
 	    	cerr <<  "Video query failed: " << SDL_GetError() << endl;
-	        return IsRunning = false;
+	        return isRunning = false;
 	    }
 
 	    int width = 640;
@@ -61,7 +61,7 @@ namespace Gravity {
 
 	    if(SDL_SetVideoMode(width, height, bpp, flags) == 0) {
 	        cerr << "Video mode set failed: " << SDL_GetError() << endl;
-	        return IsRunning = false;
+	        return isRunning = false;
 	    }
 
 	    return true;
@@ -102,7 +102,7 @@ namespace Gravity {
 	}
 
 	void Gravity::OnRender() {
-
+		window->Paint();
 	}
 
 	void Gravity::OnCleanup() {
@@ -110,7 +110,7 @@ namespace Gravity {
 	}
 
 	void Gravity::OnExit() {
-		IsRunning = false;
+		isRunning = false;
 	}
 
 	int Gravity::Execute() {

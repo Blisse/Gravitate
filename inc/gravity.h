@@ -5,30 +5,28 @@
 #include <GL/glut.h>
 
 #include "SDLEvents.h"
+#include "Views/WindowRootView.h"
 
 namespace Gravity {
 
 	class Gravity : public SDLEvents {
 
-		bool IsRunning;
-		SDL_Surface* RootDisplay;
-
-
+		bool isRunning;
+		WindowRootView* window;
 
 		bool OnInit();
 		bool InitSDL();
 		bool InitOpenGL();
-
-
 		void OnEvent(SDL_Event*);
 		void OnLoop();
 		void OnRender();
 		void OnCleanup();
+
 		int OnExecute();
 
 		// overrides
 		void OnExit();
-		
+
 	public:
 		Gravity();
 		int Execute();

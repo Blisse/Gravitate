@@ -5,14 +5,15 @@
 #include <GL/glut.h>
 
 #include "SDLEvents.h"
-#include "Views/UniverseView.h"
+
+#include "Views/RootWindow.h"
 
 namespace Gravity {
 
 	class Gravity : public SDLEvents {
 
 		bool isRunning;
-		UniverseView* window;
+		RootWindow* window;
 
 		bool OnInit();
 		bool InitSDL();

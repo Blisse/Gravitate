@@ -12,16 +12,16 @@ INC := $(shell find $(INC_DIR) -name '*.h')
 CXX = g++
 CXXFLAGS = -g -Wall -std=c++0x -I${INC_DIR} -I./lib/glm
 
-LIBFLAGS = -lSDL -lGL -lGLU
+LIBFLAGS = -lSDL -lGL -lGLU -lglut
 
 OBJECTS = \
 	${BIN_DIR}/main.o \
 	${BIN_DIR}/gravity.o \
 	${BIN_DIR}/SDLEvents.o \
 	${BIN_DIR}/Models/BaseObject.o \
-	${BIN_DIR}/Models/UniverseModel.o \
+	${BIN_DIR}/Models/Settings/GravitySettings.o \
 	${BIN_DIR}/Views/BaseView.o \
-	${BIN_DIR}/Views/UniverseView.o
+	${BIN_DIR}/Views/RootWindow.o
 
 DEPS = $(BIN_DIR)/${OUTPUT_NAME}.deps
 

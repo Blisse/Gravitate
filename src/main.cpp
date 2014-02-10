@@ -1,6 +1,8 @@
 #include "gravity.h"
 
+using namespace Gravity;
+
 int main(int argc, char* args[]) {
-	Gravity::Gravity gravity;
-	return gravity.Execute();
+    return GravityGame::Instance()->Execute();
 }
+

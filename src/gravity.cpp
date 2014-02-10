@@ -5,12 +5,21 @@ using namespace std;
 
 namespace Gravity {
 
-    Gravity::Gravity() {
+    GravityGame* GravityGame::_gravityInstance = NULL;
+
+    GravityGame* GravityGame::Instance() {
+        if (!GravityGame::_gravityInstance) {
+            GravityGame::_gravityInstance = new GravityGame();
+        }
+        return GravityGame::_gravityInstance;
+    }
+
+    GravityGame::GravityGame() {
         isRunning = true;
         window = new RootWindow();
     }
 
-    int Gravity::OnExecute()  {
+    int GravityGame::OnExecute()  {
         if (OnInit() == false) {
             cerr << "Failed to initialize." << endl;
             return -1;
@@ -30,31 +39,40 @@ namespace Gravity {
         return 0;
     }
 
-    bool Gravity::OnInit() {
+    bool GravityGame::OnInit() {
         return isRunning = window->Initialize();
     }
 
-    void Gravity::OnEvent(SDL_Event* Event) {
-        Gravity::SDLEvents::OnEvent(Event);
+    void GravityGame::OnEvent(SDL_Event* Event) {
+        GravityGame::SDLEvents::OnEvent(Event);
     }
 
-    void Gravity::OnLoop() {
+    void GravityGame::OnLoop() {
 
     }
 
-    void Gravity::OnRender() {
+    void GravityGame::OnRender() {
+        /* Clear the color and depth buffers. */
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+        /* We don't want to modify the projection matrix. */
+        glMatrixMode(GL_MODELVIEW);
+        glLoadIdentity();
+
         window->Paint();
+
+        SDL_GL_SwapBuffers();
     }
 
-    void Gravity::OnCleanup() {
+    void GravityGame::OnCleanup() {
         SDL_Quit();
     }
 
-    void Gravity::OnExit() {
+    void GravityGame::OnExit() {
         isRunning = false;
     }
 
-    int Gravity::Execute() {
-        return Gravity::OnExecute();
+    int GravityGame::Execute() {
+        return GravityGame::OnExecute();
     }
 }

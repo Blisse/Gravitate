@@ -18,7 +18,11 @@ namespace Gravity {
         std::vector<BaseView*> children;
 
     public:
-        virtual void Paint() = 0;
+        BaseView();
+        virtual ~BaseView();
+
+        virtual void Paint();
+        virtual void PaintSelf() = 0;
     };
 }
 

@@ -1,5 +1,11 @@
 #include "Models/BaseObject.h"
 
-namespace Gravity {
+using namespace Gravity;
+
+BaseObject::BaseObject() {
+
+}
+
+BaseObject::~BaseObject() {
 
 }

@@ -4,14 +4,15 @@
 #include "SDL/SDL.h"
 #include <GL/glut.h>
 
-#include "SDLEvents.h"
+#include <vector>
 
-#include "Views/RootWindow.h"
+#include "SDLEvents.h"
+#include "RootWindow.h"
 
 namespace Gravity {
 
-	class Gravity : public SDLEvents {
-
+	class GravityGame : public SDLEvents {
+		static GravityGame* _gravityInstance;
 		bool isRunning;
 		RootWindow* window;
 
@@ -28,9 +29,12 @@ namespace Gravity {
 		// overrides
 		void OnExit();
 
+		GravityGame();
+
 	public:
-		Gravity();
+
 		int Execute();
+		static GravityGame* Instance();
 
 	};
 

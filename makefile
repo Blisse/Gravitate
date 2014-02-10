@@ -4,13 +4,17 @@ SRC_DIR = ./src
 BIN_DIR = ./bin
 
 INCLUDES= \
-	-I${SRC_DIR}
+	-I${INC_DIR} \
+	-I${INC_DIR}/Models/  \
+	-I${INC_DIR}/Views/  \
+	-I${INC_DIR}/ViewControllers/  \
+	-I./lib/glm
 
 SRC := $(shell find $(SRC_DIR) -name '*.cpp')
 INC := $(shell find $(INC_DIR) -name '*.h')
 
 CXX = g++
-CXXFLAGS = -g -Wall -std=c++0x -I${INC_DIR} -I./lib/glm
+CXXFLAGS = -g -Wall -std=c++0x
 
 LIBFLAGS = -lSDL -lGL -lGLU -lglut
 
@@ -19,6 +23,7 @@ OBJECTS = \
 	${BIN_DIR}/gravity.o \
 	${BIN_DIR}/SDLEvents.o \
 	${BIN_DIR}/Models/BaseObject.o \
+	${BIN_DIR}/Models/Dot.o \
 	${BIN_DIR}/Models/Settings/GravitySettings.o \
 	${BIN_DIR}/Views/BaseView.o \
 	${BIN_DIR}/Views/RootWindow.o
@@ -27,14 +32,14 @@ DEPS = $(BIN_DIR)/${OUTPUT_NAME}.deps
 
 all: ${DEPS} ${OUTPUT_NAME}
 
-${DEPS}: ${SRC} ${INC}
-	@${CXX} -M ${SRC} > ${DEPS}
+${DEPS}: ${INC} ${SRC}
+	@${CXX} -std=c++0x ${INCLUDES} ${SRC} ${LIBFLAGS} > ${DEPS}
 
 ${OUTPUT_NAME}: ${OBJECTS}
-	${CXX} ${CXXFLAGS} ${OBJECTS} -o ${OUTPUT_NAME} ${LIBFLAGS}
+	${CXX} ${CXXFLAGS} ${INCLUDES} ${OBJECTS} -o ${OUTPUT_NAME} ${LIBFLAGS}
 
 ${OBJECTS}: ${BIN_DIR}/%.o : ${SRC_DIR}/%.cpp
-	${CXX} ${CXXFLAGS} $< -c -o $@
+	${CXX} ${CXXFLAGS} ${INCLUDES} $< -c -o $@
 
 force:
 	$(MAKE) fullclean

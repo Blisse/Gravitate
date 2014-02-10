@@ -1,14 +1,23 @@
 #include <iostream>
+#include <iterator>
 
 #include <GL/gl.h>
 #include <GL/glu.h>
 #include <GL/glut.h>
 
-#include "Views/RootWindow.h"
+#include "RootWindow.h"
+#include "BaseView.h"
 
 using namespace std;
 
 namespace Gravity {
+
+    RootWindow::RootWindow(): BaseView() {
+    }
+
+    RootWindow::~RootWindow() {
+
+    }
 
     bool RootWindow::Initialize() {
         return InitSDL() && InitOpenGL();
@@ -66,23 +75,20 @@ namespace Gravity {
         glMatrixMode(GL_PROJECTION);
         glLoadIdentity();
 
-        gluPerspective(45.0f, ratio, 1.0f, 1000.0f);
+        // gluPerspective(45.0f, ratio, 1.0f, 1000.0f);
 
         return true;
     }
 
-    void RootWindow::Paint() {
+    void RootWindow::PaintSelf() {
 
-        /* Clear the color and depth buffers. */
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        glBegin(GL_QUADS);
+            glColor3f(1, 1, 1); glVertex3f(0.5, 0.5, 0.5);
+            glColor3f(1, 1, 1); glVertex3f(1, 0.5, 0.5);
+            glColor3f(1, 1, 1); glVertex3f(1, 1, 0.5);
+            glColor3f(1, 1, 1); glVertex3f(0.5, 1, 0.5);
+        glEnd();
 
-        /* We don't want to modify the projection matrix. */
-        glMatrixMode(GL_MODELVIEW);
-        glLoadIdentity();
-
-
-
-        SDL_GL_SwapBuffers();
     }
 
     void RootWindow::RedefineViewport(int width, int height) {

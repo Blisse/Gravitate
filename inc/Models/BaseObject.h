@@ -3,6 +3,12 @@
 
 namespace Gravity {
 
+    class BaseObject {
+
+        public:
+            BaseObject();
+            virtual ~BaseObject();
+    };
 }
 
 #endif //_BASE_OBJECT_H__

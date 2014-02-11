@@ -22,6 +22,8 @@ OBJECTS = \
 	${BIN_DIR}/main.o \
 	${BIN_DIR}/gravity.o \
 	${BIN_DIR}/SDLEvents.o \
+	${BIN_DIR}/Timer.o \
+	${BIN_DIR}/TimerListener.o \
 	${BIN_DIR}/Models/BaseObject.o \
 	${BIN_DIR}/Models/Dot.o \
 	${BIN_DIR}/Models/Settings/GravitySettings.o \

@@ -6,6 +6,7 @@
 
 #include <vector>
 
+#include "Timer.h"
 #include "SDLEvents.h"
 #include "RootWindow.h"
 
@@ -15,11 +16,13 @@ namespace Gravity {
 		static GravityGame* _gravityInstance;
 		bool isRunning;
 		RootWindow* window;
+		std::vector<Timer*> timersList;
 
 		bool OnInit();
 		bool InitSDL();
 		bool InitOpenGL();
 		void OnEvent(SDL_Event*);
+		void OnTimers();
 		void OnLoop();
 		void OnRender();
 		void OnCleanup();
@@ -33,9 +36,10 @@ namespace Gravity {
 
 	public:
 
+		void AddTimer(Timer*);
+		void RemoveTimer(Timer*);
 		int Execute();
 		static GravityGame* Instance();
-
 	};
 
 }

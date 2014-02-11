@@ -1,4 +1,4 @@
-#include "Models/BaseObject.h"
+#include "BaseObject.h"
 
 using namespace Gravity;
 

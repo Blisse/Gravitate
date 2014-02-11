@@ -1,5 +1,6 @@
 #include "gravity.h"
 #include <iostream>
+#include <algorithm>
 
 using namespace std;
 
@@ -27,10 +28,12 @@ namespace Gravity {
 
         SDL_Event Event;
         while (isRunning) {
+
             while (SDL_PollEvent(&Event)) {
                 OnEvent(&Event);
             }
 
+            OnTimers();
             OnLoop();
             OnRender();
         }
@@ -45,6 +48,12 @@ namespace Gravity {
 
     void GravityGame::OnEvent(SDL_Event* Event) {
         GravityGame::SDLEvents::OnEvent(Event);
+    }
+
+    void GravityGame::OnTimers() {
+        for (int i = 0; i < timersList.size(); i++) {
+            timersList[i]->CheckTimer();
+        }
     }
 
     void GravityGame::OnLoop() {
@@ -74,5 +83,13 @@ namespace Gravity {
 
     int GravityGame::Execute() {
         return GravityGame::OnExecute();
+    }
+
+    void GravityGame::AddTimer(Timer* timer) {
+        this->timersList.push_back(timer);
+    }
+
+    void GravityGame::RemoveTimer(Timer* timer) {
+        remove(this->timersList.begin(), this->timersList.end(), timer);
     }
 }

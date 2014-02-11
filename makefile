@@ -6,6 +6,8 @@ BIN_DIR = ./bin
 INCLUDES= \
 	-I${INC_DIR} \
 	-I${INC_DIR}/Models/  \
+	-I${INC_DIR}/Models/Settings/  \
+	-I${INC_DIR}/Models/Timers/  \
 	-I${INC_DIR}/Views/  \
 	-I${INC_DIR}/ViewControllers/  \
 	-I./lib/glm
@@ -22,11 +24,11 @@ OBJECTS = \
 	${BIN_DIR}/main.o \
 	${BIN_DIR}/gravity.o \
 	${BIN_DIR}/SDLEvents.o \
-	${BIN_DIR}/Timer.o \
-	${BIN_DIR}/TimerListener.o \
 	${BIN_DIR}/Models/BaseObject.o \
 	${BIN_DIR}/Models/Dot.o \
 	${BIN_DIR}/Models/Settings/GravitySettings.o \
+	${BIN_DIR}/Models/Timers/Timer.o \
+	${BIN_DIR}/Models/Timers/TimerListener.o \
 	${BIN_DIR}/Views/BaseView.o \
 	${BIN_DIR}/Views/RootWindow.o
 

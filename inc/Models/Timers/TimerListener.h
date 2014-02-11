@@ -5,8 +5,6 @@
 
 namespace Gravity {
 
-    class Timer;
-
     class TimerListener {
     public:
         TimerListener();

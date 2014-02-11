@@ -6,18 +6,13 @@ using namespace std;
 
 namespace Gravity {
 
-    GravityGame* GravityGame::_gravityInstance = NULL;
-
-    GravityGame* GravityGame::Instance() {
-        if (!GravityGame::_gravityInstance) {
-            GravityGame::_gravityInstance = new GravityGame();
-        }
-        return GravityGame::_gravityInstance;
-    }
-
     GravityGame::GravityGame() {
         isRunning = true;
-        window = new RootWindow();
+        timersList = new vector<Timer*>();
+    }
+
+    GravityGame::~GravityGame() {
+
     }
 
     int GravityGame::OnExecute()  {
@@ -43,6 +38,8 @@ namespace Gravity {
     }
 
     bool GravityGame::OnInit() {
+        window = new RootWindow();
+
         return isRunning = window->Initialize();
     }
 
@@ -51,8 +48,8 @@ namespace Gravity {
     }
 
     void GravityGame::OnTimers() {
-        for (int i = 0; i < timersList.size(); i++) {
-            timersList[i]->CheckTimer();
+        for (unsigned int i = 0; i < timersList->size(); i++) {
+            timersList->at(i)->CheckTimer();
         }
     }
 
@@ -82,14 +79,14 @@ namespace Gravity {
     }
 
     int GravityGame::Execute() {
-        return GravityGame::OnExecute();
+        return OnExecute();
     }
 
     void GravityGame::AddTimer(Timer* timer) {
-        this->timersList.push_back(timer);
+        timersList->push_back(timer);
     }
 
     void GravityGame::RemoveTimer(Timer* timer) {
-        remove(this->timersList.begin(), this->timersList.end(), timer);
+        remove(timersList->begin(), timersList->end(), timer);
     }
 }

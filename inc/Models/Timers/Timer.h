@@ -2,7 +2,6 @@
 #define _TIMER_H__
 
 #include <vector>
-#include "TimerListener.h"
 
 namespace Gravity {
 

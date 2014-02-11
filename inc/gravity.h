@@ -13,10 +13,9 @@
 namespace Gravity {
 
 	class GravityGame : public SDLEvents {
-		static GravityGame* _gravityInstance;
 		bool isRunning;
 		RootWindow* window;
-		std::vector<Timer*> timersList;
+		std::vector<Timer*>* timersList;
 
 		bool OnInit();
 		bool InitSDL();
@@ -33,13 +32,22 @@ namespace Gravity {
 		void OnExit();
 
 		GravityGame();
+		~GravityGame();
+
+        GravityGame(GravityGame const&);              // Don't Implement
+        void operator=(GravityGame const&); // Don't implement
 
 	public:
 
 		void AddTimer(Timer*);
 		void RemoveTimer(Timer*);
 		int Execute();
-		static GravityGame* Instance();
+
+		static GravityGame& Instance()
+        {
+            static GravityGame _gravityInstance;
+            return _gravityInstance;
+        }
 	};
 
 }

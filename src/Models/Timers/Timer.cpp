@@ -1,10 +1,11 @@
 #include "SDL/SDL.h"
 #include <algorithm>
+#include <iostream>
 
 #include "gravity.h"
 #include "Timer.h"
 
-
+using namespace std;
 using namespace Gravity;
 
 Timer::Timer(unsigned long delayMS, bool repeat) {
@@ -53,9 +54,9 @@ void Timer::CheckTimer() {
     unsigned long currentTimeMS = SDL_GetTicks();
     unsigned long elapsedTimeMS = currentTimeMS - startTicks;
     if (elapsedTimeMS > delayMS) {
-      startTicks = SDL_GetTicks();
       NotifyListeners();
 
+      startTicks = SDL_GetTicks();
       if (!repeat) {
         Stop();
       }
@@ -73,9 +74,9 @@ void Timer::SetDelay(unsigned long delayMS) {
 }
 
 void Timer::AddTimer(Timer* timer) {
-    GravityGame::Instance()->AddTimer(timer);
+        GravityGame::Instance().AddTimer(timer);
 }
 
 void Timer::RemoveTimer(Timer* timer) {
-    GravityGame::Instance()->RemoveTimer(timer);
+    GravityGame::Instance().RemoveTimer(timer);
 }

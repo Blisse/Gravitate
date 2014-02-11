@@ -12,7 +12,10 @@ using namespace std;
 
 namespace Gravity {
 
-    RootWindow::RootWindow(): BaseView() {
+    RootWindow::RootWindow(): BaseView(), TimerListener() {
+        Timer* timer = new Timer(1000, true);
+        timer->AddTimerListener(this);
+        timer->Start();
     }
 
     RootWindow::~RootWindow() {
@@ -98,5 +101,9 @@ namespace Gravity {
         glLoadIdentity();
         gluPerspective(45.0f,(GLfloat)width/(GLfloat) height,1.0f,1000.0f);
         glutPostRedisplay();
+    }
+
+    void RootWindow::HandleTimer(Timer* timer) {
+        std::cout << "HandleTimer Reached" << std::endl;
     }
 }

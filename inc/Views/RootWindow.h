@@ -2,9 +2,10 @@
 #define _ROOT_WINDOW_H__
 
 #include "BaseView.h"
+#include "TimerListener.h"
 
 namespace Gravity {
-    class RootWindow : public BaseView {
+    class RootWindow : public BaseView, public TimerListener {
         bool InitSDL();
         bool InitOpenGL();
 
@@ -14,6 +15,8 @@ namespace Gravity {
         bool Initialize();
         virtual void PaintSelf();
         void RedefineViewport(int, int);
+
+        virtual void HandleTimer(Timer*);
     };
 }
 

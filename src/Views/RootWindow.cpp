@@ -1,12 +1,9 @@
 #include <iostream>
 #include <iterator>
 
-#include <GL/gl.h>
-#include <GL/glu.h>
-#include <GL/glut.h>
-
-#include "RootWindow.h"
 #include "BaseView.h"
+#include "RootWindow.h"
+#include "Dot.h"
 
 using namespace std;
 
@@ -16,6 +13,9 @@ namespace Gravity {
         Timer* timer = new Timer(1000, true);
         timer->AddTimerListener(this);
         timer->Start();
+
+        Dot* dot = new Dot();
+        this->AddChild(dot);
     }
 
     RootWindow::~RootWindow() {
@@ -78,7 +78,7 @@ namespace Gravity {
         glMatrixMode(GL_PROJECTION);
         glLoadIdentity();
 
-        gluPerspective(45.0f, ratio, 0.1f, 1000.0f);
+        gluPerspective(60.0f, ratio, 0.1f, 1000.0f);
 
         return true;
     }
@@ -94,67 +94,19 @@ namespace Gravity {
         glLineWidth(1.0);
         glColor3f(1.0, 1.0, 1.0);
         glBegin(GL_LINES);
-            glVertex3f(0.0, 0.0, 0.0);
-            glVertex3f(1000, 0, 0);
+            glVertex3f(-1000.0, 0.0, 0.0);
+            glVertex3f(1000.0, 0.0, 0.0);
         glEnd();
 
         glBegin(GL_LINES);
-            glVertex3f(0.0, 0.0, 0.0);
+            glVertex3f(0, 0, -1000);
             glVertex3f(0, 0, 1000);
         glEnd();
 
         glBegin(GL_LINES);
-            glVertex3f(0.0, 0.0, 0.0);
+            glVertex3f(0, -1000, 0);
             glVertex3f(0, 1000, 0);
         glEnd();
-
-        glBegin(GL_QUADS); // of the color cube
-
-           // Top-face
-           glColor3f(0.0f, 1.0f, 0.0f); // green
-           glVertex3f(1.0f, 1.0f, -1.0f);
-           glVertex3f(-1.0f, 1.0f, -1.0f);
-           glVertex3f(-1.0f, 1.0f, 1.0f);
-           glVertex3f(1.0f, 1.0f, 1.0f);
-
-           // Bottom-face
-           glColor3f(1.0f, 0.5f, 0.0f); // orange
-           glVertex3f(1.0f, -1.0f, 1.0f);
-           glVertex3f(-1.0f, -1.0f, 1.0f);
-           glVertex3f(-1.0f, -1.0f, -1.0f);
-           glVertex3f(1.0f, -1.0f, -1.0f);
-
-           // Front-face
-           glColor3f(1.0f, 0.0f, 0.0f); // red
-           glVertex3f(2.0f, 2.0f, 2.0f);
-           glVertex3f(-2.0f, 2.0f, 2.0f);
-           glVertex3f(-2.0f, -2.0f, 2.0f);
-           glVertex3f(2.0f, -2.0f, 2.0f);
-
-           // Back-face
-           glColor3f(1.0f, 1.0f, 0.0f); // yellow
-           glVertex3f(1.0f, -1.0f, -1.0f);
-           glVertex3f(-1.0f, -1.0f, -1.0f);
-           glVertex3f(-1.0f, 1.0f, -1.0f);
-           glVertex3f(1.0f, 1.0f, -1.0f);
-
-           // Left-face
-           glColor3f(0.0f, 0.0f, 1.0f); // blue
-           glVertex3f(-1.0f, 1.0f, 1.0f);
-           glVertex3f(-1.0f, 1.0f, -1.0f);
-           glVertex3f(-1.0f, -1.0f, -1.0f);
-           glVertex3f(-1.0f, -1.0f, 1.0f);
-
-           // Right-face
-           glColor3f(1.0f, 0.0f, 1.0f); // magenta
-           glVertex3f(1.0f, 1.0f, -1.0f);
-           glVertex3f(1.0f, 1.0f, 1.0f);
-           glVertex3f(1.0f, -1.0f, 1.0f);
-           glVertex3f(1.0f, -1.0f, -1.0f);
-
-        glEnd(); // of the color cube
-
-
     }
 
     void RootWindow::RedefineViewport(int width, int height) {

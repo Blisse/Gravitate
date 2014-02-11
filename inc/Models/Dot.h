@@ -2,19 +2,20 @@
 #define _DOT_H__
 
 #include "BaseObject.h"
+#include "BaseView.h"
 
 namespace Gravity {
-    class Dot: public BaseObject {
+    class Dot: public BaseObject, public BaseView {
 
-        private:
-            float x, y;
-            float xVel, yVel;
+        float x, y;
+        float xVel, yVel;
 
-        public:
-            Dot();
-            void handle_input();
-            void move();
-            void show();
+    public:
+        Dot();
+        ~Dot();
+
+        void SetPosition(float x, float y);
+        virtual void PaintSelf();
     };
 }
 

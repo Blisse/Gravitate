@@ -2,6 +2,7 @@
 #define _BASE_VIEW_H__
 
 #include "SDL/SDL.h"
+
 #include <GL/glut.h>
 #include <glm/glm.hpp>
 #include <vector>
@@ -23,6 +24,8 @@ namespace Gravity {
 
         virtual void Paint();
         virtual void PaintSelf() = 0;
+
+        void AddChild(BaseView*);
     };
 }
 

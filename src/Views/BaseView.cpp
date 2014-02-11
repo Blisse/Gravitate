@@ -18,3 +18,7 @@ void BaseView::Paint() {
         (*iter)->Paint();
     }
 }
+
+void BaseView::AddChild(BaseView* view) {
+    this->children.push_back(view);
+}

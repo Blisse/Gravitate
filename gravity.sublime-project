@@ -1,0 +1,34 @@
+{
+	"folders":
+	[
+		{
+			"follow_symlinks": true,
+			"path": "."
+		}
+	],
+    "build_systems":
+    [
+        {
+            "name": "Gravity Build",
+            "cmd": ["make"],
+            "working_dir": "/home/blisse/Projects/gravity/",
+            "path": "/usr/bin/",
+
+            "variants":
+            [
+                {
+                    "name": "Run",
+                    "cmd": ["./gravity"],
+                    "working_dir": "/home/blisse/Projects/gravity/",
+                    "path": "/usr/bin/",
+                },
+                {
+                    "name": "Clean",
+                    "cmd": ["make clean"],
+                    "working_dir": "/home/blisse/Projects/gravity/",
+                    "path": "/usr/bin/",
+                }
+            ]
+        }
+    ]
+}

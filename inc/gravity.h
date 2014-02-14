@@ -9,6 +9,7 @@
 #include "Timer.h"
 #include "SDLEvents.h"
 #include "RootWindow.h"
+#include "KeyEvent.h"
 
 namespace Gravity {
 
@@ -29,15 +30,17 @@ namespace Gravity {
 		int OnExecute();
 
 		// overrides
-		void OnExit();
 
-		GravityGame();
-		~GravityGame();
+        GravityGame();
+        ~GravityGame();
 
         GravityGame(GravityGame const&);              // Don't Implement
         void operator=(GravityGame const&); // Don't implement
 
-	public:
+    public:
+
+		void Exit();
+        void HandleKeyEvent(KeyEvent*);
 
 		void AddTimer(Timer*);
 		void RemoveTimer(Timer*);

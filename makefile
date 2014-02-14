@@ -6,6 +6,7 @@ BIN_DIR = ./bin
 INCLUDES= \
 	-I${INC_DIR} \
 	-I${INC_DIR}/Models/  \
+	-I${INC_DIR}/Models/Events/  \
 	-I${INC_DIR}/Models/Settings/  \
 	-I${INC_DIR}/Models/Timers/  \
 	-I${INC_DIR}/Views/  \
@@ -26,6 +27,8 @@ OBJECTS = \
 	${BIN_DIR}/SDLEvents.o \
 	${BIN_DIR}/Models/BaseObject.o \
 	${BIN_DIR}/Models/Dot.o \
+	${BIN_DIR}/Models/Events/Event.o \
+	${BIN_DIR}/Models/Events/KeyEvent.o \
 	${BIN_DIR}/Models/Settings/GravitySettings.o \
 	${BIN_DIR}/Models/Timers/Timer.o \
 	${BIN_DIR}/Models/Timers/TimerListener.o \

@@ -2,6 +2,7 @@
 #define _ROOT_WINDOW_H__
 
 #include "BaseView.h"
+#include "Dot.h"
 #include "TimerListener.h"
 
 namespace Gravity {
@@ -9,11 +10,14 @@ namespace Gravity {
         bool InitSDL();
         bool InitOpenGL();
 
+        Dot* dot;
+
     public:
         RootWindow();
         ~RootWindow();
         bool Initialize();
         virtual void PaintSelf();
+        virtual bool HandleKeyEventSelf(KeyEvent*);
         void RedefineViewport(int, int);
 
         virtual void HandleTimer(Timer*);

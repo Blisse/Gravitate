@@ -1,4 +1,6 @@
 #include "SDLEvents.h"
+#include "gravity.h"
+#include "KeyEvent.h"
 #include <iostream>
 
 using namespace std;
@@ -48,19 +50,29 @@ namespace Gravity {
 
             case SDL_KEYDOWN: {
                 cout << "SDL_KEYDOWN" << endl;
-                OnKeyDown(Event->key.keysym.sym,Event->key.keysym.mod,Event->key.keysym.unicode);
+                OnKeyDown(Event->key.keysym.sym,
+                    Event->key.keysym.mod,
+                    Event->key.keysym.unicode);
                 break;
             }
 
             case SDL_KEYUP: {
                 cout << "SDL_KEYUP" << endl;
-                OnKeyUp(Event->key.keysym.sym,Event->key.keysym.mod,Event->key.keysym.unicode);
+                OnKeyUp(Event->key.keysym.sym,
+                    Event->key.keysym.mod,
+                    Event->key.keysym.unicode);
                 break;
             }
 
             case SDL_MOUSEMOTION: {
                 cout << "SDL_MOUSEMOTION" << endl;
-                OnMouseMove(Event->motion.x,Event->motion.y,Event->motion.xrel,Event->motion.yrel,(Event->motion.state&SDL_BUTTON(SDL_BUTTON_LEFT))!=0,(Event->motion.state&SDL_BUTTON(SDL_BUTTON_RIGHT))!=0,(Event->motion.state&SDL_BUTTON(SDL_BUTTON_MIDDLE))!=0);
+                OnMouseMove(Event->motion.x,
+                    Event->motion.y,
+                    Event->motion.xrel,
+                    Event->motion.yrel,
+                    (Event->motion.state & SDL_BUTTON(SDL_BUTTON_LEFT)) != 0,
+                    (Event->motion.state & SDL_BUTTON(SDL_BUTTON_RIGHT)) != 0,
+                    (Event->motion.state & SDL_BUTTON(SDL_BUTTON_MIDDLE)) != 0);
                 break;
             }
 
@@ -108,21 +120,21 @@ namespace Gravity {
             }
 
             case SDL_JOYBALLMOTION: {
-                OnJoyBall(Event->jball.which,Event->jball.ball,Event->jball.xrel,Event->jball.yrel);
+                OnJoyBall(Event->jball.which, Event->jball.ball, Event->jball.xrel, Event->jball.yrel);
                 break;
             }
 
             case SDL_JOYHATMOTION: {
-                OnJoyHat(Event->jhat.which,Event->jhat.hat,Event->jhat.value);
+                OnJoyHat(Event->jhat.which, Event->jhat.hat, Event->jhat.value);
                 break;
             }
             case SDL_JOYBUTTONDOWN: {
-                OnJoyButtonDown(Event->jbutton.which,Event->jbutton.button);
+                OnJoyButtonDown(Event->jbutton.which, Event->jbutton.button);
                 break;
             }
 
             case SDL_JOYBUTTONUP: {
-                OnJoyButtonUp(Event->jbutton.which,Event->jbutton.button);
+                OnJoyButtonUp(Event->jbutton.which, Event->jbutton.button);
                 break;
             }
 
@@ -150,7 +162,7 @@ namespace Gravity {
             }
 
             default: {
-                OnUser(Event->user.type,Event->user.code,Event->user.data1,Event->user.data2);
+                OnUser(Event->user.type, Event->user.code, Event->user.data1, Event->user.data2);
                 break;
             }
         }
@@ -165,13 +177,9 @@ namespace Gravity {
     }
 
     void SDLEvents::OnKeyDown(SDLKey sym, SDLMod mod, Uint16 unicode) {
-        switch(sym) {
-            case SDLK_ESCAPE:
-                OnExit();
-                break;
-            default:
-                break;
-        }
+        KeyEvent* event = new KeyEvent(sym, mod, unicode);
+        event->Dispatch();
+        delete event;
     }
 
     void SDLEvents::OnKeyUp(SDLKey sym, SDLMod mod, Uint16 unicode) {
@@ -186,7 +194,7 @@ namespace Gravity {
         //Pure virtual, do nothing
     }
 
-    void SDLEvents::OnMouseMove(int mX, int mY, int relX, int relY, bool Left,bool Right,bool Middle) {
+    void SDLEvents::OnMouseMove(int mX, int mY, int relX, int relY, bool Left, bool Right, bool Middle) {
         //Pure virtual, do nothing
     }
 
@@ -256,6 +264,7 @@ namespace Gravity {
 
     void SDLEvents::OnExit() {
         //Pure virtual, do nothing
+        GravityGame::Instance().Exit();
     }
 
     void SDLEvents::OnUser(Uint8 type, int code, void* data1, void* data2) {

@@ -1,6 +1,7 @@
 #ifndef _BASE_VIEW_H__
 #define _BASE_VIEW_H__
 
+#include "KeyEvent.h"
 #include "SDL/SDL.h"
 
 #include <GL/glut.h>
@@ -24,6 +25,9 @@ namespace Gravity {
 
         virtual void Paint();
         virtual void PaintSelf() = 0;
+
+        virtual bool HandleKeyEvent(KeyEvent*);
+        virtual bool HandleKeyEventSelf(KeyEvent*) = 0;
 
         void AddChild(BaseView*);
     };

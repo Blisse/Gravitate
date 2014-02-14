@@ -1,6 +1,7 @@
 #include <iostream>
 #include <iterator>
 
+#include "gravity.h"
 #include "BaseView.h"
 #include "RootWindow.h"
 #include "Dot.h"
@@ -14,7 +15,8 @@ namespace Gravity {
         timer->AddTimerListener(this);
         timer->Start();
 
-        Dot* dot = new Dot();
+        dot = new Dot();
+
         this->AddChild(dot);
     }
 
@@ -92,21 +94,39 @@ namespace Gravity {
         // glRotatef( fZrot, 0.0f, 0.0f, 1.0f );
 
         glLineWidth(1.0);
-        glColor3f(1.0, 1.0, 1.0);
         glBegin(GL_LINES);
+            glColor3f(1.0, 0, 0);
             glVertex3f(-1000.0, 0.0, 0.0);
             glVertex3f(1000.0, 0.0, 0.0);
         glEnd();
 
         glBegin(GL_LINES);
+            glColor3f(0, 1.0, 0);
             glVertex3f(0, 0, -1000);
             glVertex3f(0, 0, 1000);
         glEnd();
 
         glBegin(GL_LINES);
+            glColor3f(0, 0, 1.0);
             glVertex3f(0, -1000, 0);
             glVertex3f(0, 1000, 0);
         glEnd();
+    }
+
+    bool RootWindow::HandleKeyEventSelf(KeyEvent* keyEvent) {
+        cout << "HandleKeyEventSelf on RootWindow reached." << endl;
+        switch(keyEvent->GetKey()) {
+            case SDLK_ESCAPE: {
+                cout << "SDLK_ESCAPE." << endl;
+                GravityGame::Instance().Exit();
+                return true;
+                break;
+            }
+            default:
+                break;
+        }
+
+        return false;
     }
 
     void RootWindow::RedefineViewport(int width, int height) {
@@ -119,6 +139,8 @@ namespace Gravity {
     }
 
     void RootWindow::HandleTimer(Timer* timer) {
-        std::cout << "HandleTimer Reached" << std::endl;
+        if (dot) {
+            dot->SetPosition(dot->GetX() + 1.0f, dot->GetY() + 1.0f, dot->GetZ() + 1.0f);
+        }
     }
 }

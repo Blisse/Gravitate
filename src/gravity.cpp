@@ -74,8 +74,13 @@ namespace Gravity {
         SDL_Quit();
     }
 
-    void GravityGame::OnExit() {
+    void GravityGame::Exit() {
+        cerr << "Exit called." << endl;
         isRunning = false;
+    }
+
+    void GravityGame::HandleKeyEvent(KeyEvent* keyEvent) {
+        window->HandleKeyEvent(keyEvent);
     }
 
     int GravityGame::Execute() {

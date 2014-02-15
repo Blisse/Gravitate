@@ -10,13 +10,8 @@ using namespace std;
 
 namespace Gravity {
 
-    RootWindow::RootWindow(): BaseView(), TimerListener() {
-        Timer* timer = new Timer(1000, true);
-        timer->AddTimerListener(this);
-        timer->Start();
-
+    RootWindow::RootWindow(): BaseView() {
         dot = new Dot();
-
         this->AddChild(dot);
     }
 
@@ -114,7 +109,6 @@ namespace Gravity {
     }
 
     bool RootWindow::HandleKeyEventSelf(KeyEvent* keyEvent) {
-        cout << "HandleKeyEventSelf on RootWindow reached." << endl;
         switch(keyEvent->GetKey()) {
             case SDLK_ESCAPE: {
                 cout << "SDLK_ESCAPE." << endl;
@@ -136,11 +130,5 @@ namespace Gravity {
         glLoadIdentity();
         gluPerspective(45.0f,(GLfloat)width/(GLfloat) height,1.0f,1000.0f);
         glutPostRedisplay();
-    }
-
-    void RootWindow::HandleTimer(Timer* timer) {
-        if (dot) {
-            dot->SetPosition(dot->GetX() + 1.0f, dot->GetY() + 1.0f, dot->GetZ() + 1.0f);
-        }
     }
 }

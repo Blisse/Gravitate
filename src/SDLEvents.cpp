@@ -177,13 +177,15 @@ namespace Gravity {
     }
 
     void SDLEvents::OnKeyDown(SDLKey sym, SDLMod mod, Uint16 unicode) {
-        KeyEvent* event = new KeyEvent(sym, mod, unicode);
+        KeyEvent* event = new KeyEvent(sym, mod, unicode, KeyEvent::DOWN);
         event->Dispatch();
         delete event;
     }
 
     void SDLEvents::OnKeyUp(SDLKey sym, SDLMod mod, Uint16 unicode) {
-        //Pure virtual, do nothing
+        KeyEvent* event = new KeyEvent(sym, mod, unicode, KeyEvent::UP);
+        event->Dispatch();
+        delete event;
     }
 
     void SDLEvents::OnMouseFocus() {

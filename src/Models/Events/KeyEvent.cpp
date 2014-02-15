@@ -3,10 +3,11 @@
 
 namespace Gravity
 {
-    KeyEvent::KeyEvent(SDLKey sym, SDLMod mod, Uint16 unicode): Event() {
+    KeyEvent::KeyEvent(SDLKey sym, SDLMod mod, Uint16 unicode, TYPE type): Event() {
         this->key = sym;
         this->mod = mod;
         this->unicode = unicode;
+        this->type = type;
     }
 
     KeyEvent::~KeyEvent() {
@@ -30,6 +31,10 @@ namespace Gravity
 
     Uint16 KeyEvent::GetUnicode() {
         return unicode;
+    }
+
+    KeyEvent::TYPE KeyEvent::GetType() {
+        return type;
     }
 
 }

@@ -6,20 +6,29 @@
 #include "Event.h"
 
 namespace Gravity {
-  class KeyEvent: Event {
-    SDLKey key;
-    SDLMod mod;
-    Uint16 unicode;
+    class KeyEvent: Event {
 
-  public:
-    KeyEvent(SDLKey, SDLMod, Uint16);
-    ~KeyEvent();
-    virtual std::string ToString() const;
-    virtual void Dispatch();
+    public:
+        enum TYPE {
+            UP = 0,
+            DOWN
+        };
 
-    SDLKey GetKey();
-    SDLMod GetMod();
-    Uint16 GetUnicode();
+        KeyEvent(SDLKey, SDLMod, Uint16, TYPE);
+        ~KeyEvent();
+        virtual std::string ToString() const;
+        virtual void Dispatch();
+
+        SDLKey GetKey();
+        SDLMod GetMod();
+        Uint16 GetUnicode();
+        TYPE GetType();
+
+    private:
+        SDLKey key;
+        SDLMod mod;
+        Uint16 unicode;
+        TYPE type;
 
  };
 }

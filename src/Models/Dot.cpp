@@ -1,12 +1,16 @@
 #include "Dot.h"
+#include <iostream>
+
+#include "SDL/SDL.h"
 
 #include <GL/gl.h>
 #include <GL/glu.h>
 #include <GL/glut.h>
 
+using namespace std;
 using namespace Gravity;
 
-Dot::Dot(): BaseObject(), BaseView() {
+Dot::Dot(): BaseObject(), BaseView(), TimerListener() {
     x = 0.0;
     y = 0.0;
     z = 0.0;
@@ -16,6 +20,10 @@ Dot::Dot(): BaseObject(), BaseView() {
     zVel = 0.0;
 
     size = 1.0;
+
+    Timer* timer = new Timer(100, true);
+    timer->AddTimerListener(this);
+    timer->Start();
 }
 
 Dot::~Dot() {
@@ -32,6 +40,10 @@ float Dot::GetY() {
 
 float Dot::GetZ() {
     return this->z;
+}
+
+float Dot::GetSize() {
+    return this->size;
 }
 
 void Dot::SetPosition(float x, float y, float z) {
@@ -90,5 +102,61 @@ void Dot::PaintSelf() {
 }
 
 bool Dot::HandleKeyEventSelf(KeyEvent* keyEvent) {
+    if (keyEvent->GetType() == KeyEvent::UP) {
+
+        switch(keyEvent->GetKey()) {
+            case SDLK_UP: {
+                this->yVel -= this->size / 2;
+                return true;
+            }
+            case SDLK_DOWN: {
+                this->yVel += this->size / 2;
+                return true;
+            }
+            case SDLK_LEFT: {
+                this->xVel += this->size / 2;
+                return true;
+            }
+            case SDLK_RIGHT: {
+                this->xVel -= this->size / 2;
+                return true;
+            }
+            default:
+                break;
+        }
+
+
+    } else if (keyEvent->GetType() == KeyEvent::DOWN) {
+
+        switch(keyEvent->GetKey()) {
+            case SDLK_UP: {
+                this->yVel += this->size / 2;
+                return true;
+            }
+            case SDLK_DOWN: {
+                this->yVel -= this->size / 2;
+                return true;
+            }
+            case SDLK_LEFT: {
+                this->xVel -= this->size / 2;
+                return true;
+            }
+            case SDLK_RIGHT: {
+                this->xVel += this->size / 2;
+                return true;
+            }
+            default:
+                break;
+        }
+    }
+
     return false;
+}
+
+
+void Dot::HandleTimer(Timer* timer) {
+    this->SetPosition(this->GetX() + this->xVel,
+        this->GetY() + this->yVel,
+        this->GetZ() + this->zVel
+    );
 }

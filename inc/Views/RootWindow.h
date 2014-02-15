@@ -6,7 +6,7 @@
 #include "TimerListener.h"
 
 namespace Gravity {
-    class RootWindow : public BaseView, public TimerListener {
+    class RootWindow : public BaseView {
         bool InitSDL();
         bool InitOpenGL();
 
@@ -19,8 +19,6 @@ namespace Gravity {
         virtual void PaintSelf();
         virtual bool HandleKeyEventSelf(KeyEvent*);
         void RedefineViewport(int, int);
-
-        virtual void HandleTimer(Timer*);
     };
 }
 

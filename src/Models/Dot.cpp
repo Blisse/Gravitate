@@ -21,7 +21,7 @@ Dot::Dot(): BaseObject(), BaseView(), TimerListener() {
 
     size = 1.0;
 
-    Timer* timer = new Timer(100, true);
+    Timer* timer = new Timer(25, true);
     timer->AddTimerListener(this);
     timer->Start();
 }
